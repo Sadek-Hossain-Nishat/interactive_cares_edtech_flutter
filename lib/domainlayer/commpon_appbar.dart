@@ -36,11 +36,6 @@ Widget commonAppBar(String pagename) {
                                   color: Colors.blueGrey,
                                   fontSize: 25.sp,
                                   fontWeight: FontWeight.w600),
-                              middleText: authviewmodel.currentuserEmail.value,
-                              middleTextStyle: TextStyle(
-                                  color: Colors.blueGrey,
-                                  fontSize: 25.sp,
-                                  fontWeight: FontWeight.w600),
                               textConfirm: 'Yes',
                               textCancel: 'No',
                               confirmTextColor: Colors.white,
@@ -51,18 +46,22 @@ Widget commonAppBar(String pagename) {
                               },
                               content: Column(
                                 children: [
-                                  Text(authviewmodel.currentuserEmail.value,
-                                      style: TextStyle(
-                                          fontSize: 20.sp,
-                                          color: const Color.fromRGBO(
-                                              0, 188, 212, 1),
-                                          fontWeight: FontWeight.w500)),
+                                  Row(
+                                    children: [
+                                      Text(authviewmodel.currentuserEmail.value,
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              color: AppColor.primarycolor,
+                                              fontWeight: FontWeight.w500)),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h),
                                   Row(children: [
                                     Icon(Icons.power_off,
-                                        color: Colors.blueGrey),
+                                        color: AppColor.primarycolor),
                                     Text('Sign OUt?',
                                         style: TextStyle(
-                                            fontSize: 20.sp,
+                                            fontSize: 14.sp,
                                             color: AppColor.primarycolor,
                                             fontWeight: FontWeight.w500))
                                   ]),

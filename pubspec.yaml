@@ -41,11 +41,12 @@ dependencies:
   flutter_screenutil: ^5.7.0
   google_sign_in: ^6.1.6
   #  fluttertoast: ^8.2.2
-  carousel_slider: ^4.2.1
-  dots_indicator: ^2.1.1
+  # carousel_slider: ^4.2.1
+  # dots_indicator: ^2.1.1
   get: ^4.6.5
-  riverpod: ^2.4.8
-  provider: ^6.1.1
+  # riverpod: ^2.4.8
+  # provider: ^6.1.1
+  youtube_player_flutter: ^8.1.2
 
 dev_dependencies:
   flutter_test:
