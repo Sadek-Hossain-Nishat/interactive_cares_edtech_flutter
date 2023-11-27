@@ -12,7 +12,7 @@ class CousreItemView {
       bool course_complete,
       int course_position) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
           // Get.to(
@@ -24,36 +24,45 @@ class CousreItemView {
           //     transition: Transition.rightToLeft);
           print(course_title);
         },
-        child: new Container(
-          height: 300.h,
-          child: new Card(
-            child: new Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    videoThumnail(course_video),
-                    SizedBox(height: 20.h),
-                    Text(course_title,
-                        style: TextStyle(
-                            fontSize: 20.sp, fontWeight: FontWeight.w500))
-                  ],
+        child: AspectRatio(
+          aspectRatio: 0.8,
+          child: new Container(
+            // height: 350.h,
+            child: new Card(
+              child: new Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      videoThumnail(course_video),
+                      SizedBox(height: 20.h),
+                      Text(course_title,
+                          style: TextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.w500)),
+                      SizedBox(height: 20.h),
+                      Text('Price: 5000 BDT',
+                          style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.blueAccent)),
+                    ],
+                  ),
                 ),
               ),
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
             ),
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
+            // decoration: new BoxDecoration(
+            //   boxShadow: [
+            //     new BoxShadow(
+            //       color: Colors.black,
+            //       blurRadius: 20.0,
+            //     ),
+            //   ],
+            // ),
           ),
-          // decoration: new BoxDecoration(
-          //   boxShadow: [
-          //     new BoxShadow(
-          //       color: Colors.black,
-          //       blurRadius: 20.0,
-          //     ),
-          //   ],
-          // ),
         ),
       ),
     );

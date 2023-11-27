@@ -15,7 +15,6 @@ class CategoryItemPage extends StatefulWidget {
 class _CategoryItemPageState extends State<CategoryItemPage> {
   String name;
   _CategoryItemPageState(this.name);
-  var _coursetitle = '';
 
   @override
   void initState() {
@@ -55,13 +54,14 @@ class _CategoryItemPageState extends State<CategoryItemPage> {
                   aspectRatio: 0.5,
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
-                          .collection('products')
-                          .where('product-name', isEqualTo: name)
+                          .collection('course')
+                          .where('course_type', isEqualTo: name)
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
                           return Center(
-                            child: Text('Something went wrong!...',
+                            child: Text(
+                                'Something went wrong!... ${snapshot.error}',
                                 style: TextStyle(color: Colors.black)),
                           );
                         }
