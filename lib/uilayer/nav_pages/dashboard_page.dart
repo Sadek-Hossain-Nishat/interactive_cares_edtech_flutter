@@ -51,11 +51,14 @@ class _DashBoardState extends State<DashBoard> {
         userExist
             ? Column(
                 children: [
-                  Row(children: [
-                    Text('Enrolled Course',
-                        style: TextStyle(
-                            fontSize: 25.sp, fontWeight: FontWeight.w500))
-                  ]),
+                  Padding(
+                    padding: EdgeInsets.all(15.w),
+                    child: Row(children: [
+                      Text('Enrolled Course',
+                          style: TextStyle(
+                              fontSize: 25.sp, fontWeight: FontWeight.w500))
+                    ]),
+                  ),
                   AspectRatio(
                     aspectRatio: 0.2,
                     child: StreamBuilder(

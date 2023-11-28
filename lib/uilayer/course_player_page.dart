@@ -91,7 +91,7 @@ class _CoursePlayerPageState extends State<CoursePlayerPage> {
   //     });
   //   });
 
-  //   // var course_position = snapshot.asStream()["course_position"];
+  // var course_position = snapshot.asStream()["course_position"];
   // }
 
   @override
@@ -115,34 +115,37 @@ class _CoursePlayerPageState extends State<CoursePlayerPage> {
     _seekToController = TextEditingController();
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
+    // updatecallback();
   }
+
+  // updatecallback() {
+  //   final FirebaseAuth _auth = FirebaseAuth.instance;
+  //   var currentUser = _auth.currentUser;
+
+  //   FirebaseFirestore.instance
+  //       .collection("usersdata/users/${currentUser!.email}")
+  //       .where('course_title', isEqualTo: widget.course_title)
+  //       .get()
+  //       .then((value) {
+  //     value.docs.forEach((doc) {
+  //       var docid = doc.id.toString();
+
+  //       Map<String, dynamic>? data = doc.data();
+  //       var course_position =
+  //           data?["course_position"]; // <-- The value you want to retrieve.
+  //       // Call setState if needed.
+  //       _controller.seekTo(Duration(seconds: course_position));
+
+  //       FirebaseFirestore.instance
+  //           .collection("usersdata/users/${currentUser!.email}")
+  //           .doc(docid)
+  //           .update({'"course_position"': course_position});
+  //     });
+  //   });
+  // }
 
   void listener() {
     if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
-      // final FirebaseAuth _auth = FirebaseAuth.instance;
-      // var currentUser = _auth.currentUser;
-
-      // FirebaseFirestore.instance
-      //     .collection("usersdata/users/${currentUser!.email}")
-      //     .where('course_title', isEqualTo: widget.course_title)
-      //     .get()
-      //     .then((value) {
-      //   value.docs.forEach((doc) {
-      //     var docid = doc.id.toString();
-
-      //     Map<String, dynamic>? data = doc.data();
-      //     var course_position =
-      //         data?["course_position"]; // <-- The value you want to retrieve.
-      //     // Call setState if needed.
-      //     _controller.seekTo(Duration(seconds: course_position));
-
-      //     FirebaseFirestore.instance
-      //         .collection("usersdata/users/${currentUser!.email}")
-      //         .doc(docid)
-      //         .update({'"course_position"': course_position});
-      //   });
-      // });
-
       setState(() {
         _playerState = _controller.value.playerState;
         _videoMetaData = _controller.metadata;
