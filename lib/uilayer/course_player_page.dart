@@ -16,7 +16,6 @@ class CoursePlayerPage extends StatefulWidget {
   bool course_complete;
   int course_position;
   final String videoId;
-  final List<String> ids;
 
   CoursePlayerPage({
     super.key,
@@ -27,7 +26,6 @@ class CoursePlayerPage extends StatefulWidget {
     required this.course_complete,
     required this.course_position,
     required this.videoId,
-    required this.ids,
   });
 
   @override
@@ -67,34 +65,34 @@ class _CoursePlayerPageState extends State<CoursePlayerPage> {
   bool _isPlayerReady = false;
   var currentIndex = 0;
 
-  updateposition(int id, int seconds) async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    var currentUser = _auth.currentUser;
+  // updateposition(int id, int seconds) async {
+  //   final FirebaseAuth _auth = FirebaseAuth.instance;
+  //   var currentUser = _auth.currentUser;
 
-    var collection = FirebaseFirestore.instance
-        .collection("usersdata/users/${currentUser!.email}");
-    await collection
-        .where('course_title', isEqualTo: widget.course_title)
-        .get()
-        .then((value) {
-      value.docs.forEach((doc) {
-        var docid = doc.id.toString();
+  //   var collection = FirebaseFirestore.instance
+  //       .collection("usersdata/users/${currentUser!.email}");
+  //   await collection
+  //       .where('course_title', isEqualTo: widget.course_title)
+  //       .get()
+  //       .then((value) {
+  //     value.docs.forEach((doc) {
+  //       var docid = doc.id.toString();
 
-        Map<String, dynamic>? data = doc.data();
-        var course_position =
-            data?["course_position"]; // <-- The value you want to retrieve.
-        // Call setState if needed.
-        course_position[id] = seconds;
+  //       Map<String, dynamic>? data = doc.data();
+  //       var course_position =
+  //           data?["course_position"]; // <-- The value you want to retrieve.
+  //       // Call setState if needed.
+  //       course_position = seconds;
 
-        FirebaseFirestore.instance
-            .collection("usersdata/users/${currentUser!.email}")
-            .doc(docid)
-            .update({'"course_position"': course_position});
-      });
-    });
+  //       FirebaseFirestore.instance
+  //           .collection("usersdata/users/${currentUser!.email}")
+  //           .doc(docid)
+  //           .update({'"course_position"': course_position});
+  //     });
+  //   });
 
-    // var course_position = snapshot.asStream()["course_position"];
-  }
+  //   // var course_position = snapshot.asStream()["course_position"];
+  // }
 
   @override
   void initState() {
@@ -102,7 +100,7 @@ class _CoursePlayerPageState extends State<CoursePlayerPage> {
     super.initState();
 
     _controller = YoutubePlayerController(
-      initialVideoId: widget.ids.first,
+      initialVideoId: widget.videoId,
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
@@ -121,29 +119,29 @@ class _CoursePlayerPageState extends State<CoursePlayerPage> {
 
   void listener() {
     if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
-      final FirebaseAuth _auth = FirebaseAuth.instance;
-      var currentUser = _auth.currentUser;
+      // final FirebaseAuth _auth = FirebaseAuth.instance;
+      // var currentUser = _auth.currentUser;
 
-      FirebaseFirestore.instance
-          .collection("usersdata/users/${currentUser!.email}")
-          .where('course_title', isEqualTo: widget.course_title)
-          .get()
-          .then((value) {
-        value.docs.forEach((doc) {
-          var docid = doc.id.toString();
+      // FirebaseFirestore.instance
+      //     .collection("usersdata/users/${currentUser!.email}")
+      //     .where('course_title', isEqualTo: widget.course_title)
+      //     .get()
+      //     .then((value) {
+      //   value.docs.forEach((doc) {
+      //     var docid = doc.id.toString();
 
-          Map<String, dynamic>? data = doc.data();
-          var course_position =
-              data?["course_position"]; // <-- The value you want to retrieve.
-          // Call setState if needed.
-          _controller.seekTo(Duration(seconds: course_position[currentIndex]));
+      //     Map<String, dynamic>? data = doc.data();
+      //     var course_position =
+      //         data?["course_position"]; // <-- The value you want to retrieve.
+      //     // Call setState if needed.
+      //     _controller.seekTo(Duration(seconds: course_position));
 
-          FirebaseFirestore.instance
-              .collection("usersdata/users/${currentUser!.email}")
-              .doc(docid)
-              .update({'"course_position"': course_position});
-        });
-      });
+      //     FirebaseFirestore.instance
+      //         .collection("usersdata/users/${currentUser!.email}")
+      //         .doc(docid)
+      //         .update({'"course_position"': course_position});
+      //   });
+      // });
 
       setState(() {
         _playerState = _controller.value.playerState;
@@ -155,7 +153,7 @@ class _CoursePlayerPageState extends State<CoursePlayerPage> {
   @override
   void deactivate() {
     // Pauses video while navigating to next page.
-    updateposition(currentIndex, _controller.value.position.inSeconds);
+    // updateposition(currentIndex, _controller.value.position.inSeconds);
     _controller.pause();
 
     super.deactivate();
@@ -163,7 +161,7 @@ class _CoursePlayerPageState extends State<CoursePlayerPage> {
 
   @override
   void dispose() {
-    updateposition(currentIndex, _controller.value.position.inSeconds);
+    // updateposition(currentIndex, _controller.value.position.inSeconds);
     _controller.dispose();
     _idController.dispose();
     _seekToController.dispose();
@@ -181,11 +179,6 @@ class _CoursePlayerPageState extends State<CoursePlayerPage> {
         controller: _controller,
         showVideoProgressIndicator: true,
         progressIndicatorColor: Colors.blueAccent,
-        bottomActions: [
-          CurrentPosition(),
-          ProgressBar(isExpanded: true),
-          RemainingDuration(),
-        ],
         topActions: <Widget>[
           const SizedBox(width: 8.0),
           Expanded(
@@ -214,15 +207,9 @@ class _CoursePlayerPageState extends State<CoursePlayerPage> {
           _isPlayerReady = true;
         },
         onEnded: (data) {
-          _controller.load(widget
-              .ids[(widget.ids.indexOf(data.videoId) + 1) % widget.ids.length]);
+          _controller.load(widget.videoId);
 
           _showSnackBar('Next Video Started!');
-
-          setState(() {
-            currentIndex =
-                (widget.ids.indexOf(data.videoId) + 1) % widget.ids.length;
-          });
         },
       ),
       builder: (context, player) => Scaffold(
@@ -309,10 +296,7 @@ class _CoursePlayerPageState extends State<CoursePlayerPage> {
                       IconButton(
                         icon: const Icon(Icons.skip_previous),
                         onPressed: _isPlayerReady
-                            ? () => _controller.load(widget.ids[(widget.ids
-                                        .indexOf(_controller.metadata.videoId) -
-                                    1) %
-                                widget.ids.length])
+                            ? () => _controller.load(widget.videoId)
                             : null,
                       ),
                       IconButton(
@@ -350,10 +334,7 @@ class _CoursePlayerPageState extends State<CoursePlayerPage> {
                       IconButton(
                         icon: const Icon(Icons.skip_next),
                         onPressed: _isPlayerReady
-                            ? () => _controller.load(widget.ids[(widget.ids
-                                        .indexOf(_controller.metadata.videoId) +
-                                    1) %
-                                widget.ids.length])
+                            ? () => _controller.load(widget.videoId)
                             : null,
                       ),
                     ],

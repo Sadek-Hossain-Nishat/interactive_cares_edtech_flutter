@@ -80,15 +80,16 @@ class _CategoryItemPageState extends State<CategoryItemPage> {
                           children: snapshot.data!.docs.map((document) {
                             Map<String, dynamic> data =
                                 document.data() as Map<String, dynamic>;
+                            print(data);
 
                             return CousreItemView.courseItemView(
-                                data['course_type'],
-                                data['course_title'],
-                                data['course_video'][0],
-                                data['course_enroll'],
-                                data['course_complete'],
-                                data['course_position'],
-                                data['course_video']);
+                              data['course_type'],
+                              data['course_title'],
+                              data['course_video'],
+                              data['course_enroll'],
+                              data['course_complete'],
+                              data['course_position'],
+                            );
                           }).toList(),
                         );
                       }),

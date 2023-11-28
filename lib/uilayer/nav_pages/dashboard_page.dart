@@ -88,13 +88,13 @@ class _DashBoardState extends State<DashBoard> {
                                   document.data() as Map<String, dynamic>;
 
                               return CousreItemView.EnrollItemView(
-                                  data['course_type'],
-                                  data['course_title'],
-                                  data['course_video'][0],
-                                  data['course_enroll'],
-                                  data['course_complete'],
-                                  data['course_position'],
-                                  data['course_video']);
+                                data['course_type'],
+                                data['course_title'],
+                                data['course_video'],
+                                data['course_enroll'],
+                                data['course_complete'],
+                                data['course_position'],
+                              );
                             }).toList(),
                           );
                         }),
@@ -118,7 +118,7 @@ class _DashBoardState extends State<DashBoard> {
                                 2), //duration of transitions, default 1 sec
                         transition: Transition.leftToRight);
                   },
-                  child: Text('Already enrolled'),
+                  child: Text('Sign In'),
                 ),
               )
       ],

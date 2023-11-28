@@ -19,8 +19,7 @@ class CourseDetailsPage extends StatefulWidget {
   bool course_complete;
   int course_position;
   final String videoId;
-  final List<String> videolist;
-  final List<String> ids;
+  
 
   CourseDetailsPage({
     super.key,
@@ -30,9 +29,8 @@ class CourseDetailsPage extends StatefulWidget {
     required this.course_enroll,
     required this.course_complete,
     required this.course_position,
-    required this.videoId,
-    required this.videolist,
-    required this.ids,
+    required this.videoId
+    
   });
 
   @override
@@ -215,7 +213,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                                         course_complete: widget.course_complete,
                                         course_position: widget.course_position,
                                         videoId: widget.videoId,
-                                        ids: widget.ids),
+                                        ),
                                     duration: Duration(
                                         seconds:
                                             1), //duration of transitions, default 1 sec
@@ -253,23 +251,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                                 fontSize: 20.sp, fontWeight: FontWeight.w500)),
                       ],
                     ),
-                    AspectRatio(
-                        aspectRatio: 0.4,
-                        child: Container(
-                            child: ListView.builder(
-                          // Let the ListView know how many items it needs to build.
-                          itemCount: widget.videolist.length,
-                          // Provide a builder function. This is where the magic happens.
-                          // Convert each item into a widget based on the type of item it is.
-                          itemBuilder: (context, index) {
-                            final item = widget.videolist[index];
-
-                            return ListTile(
-                              leading: CousreItemView.videotileimg(item),
-                              title: Text('Part-${index}'),
-                            );
-                          },
-                        )))
+                   
                   ],
                 ),
               )),
@@ -359,10 +341,10 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
         _collectionRef.doc().set({
           "course_type": widget.course_type,
           "course_title": widget.course_title,
-          "course_video": widget.videolist,
+          "course_video": widget.course_video,
           "course_enroll": true,
           "course_complete": false,
-          "course_position": [0, 0]
+          "course_position": 0
         }).then((value) {
           Get.back();
           Get.defaultDialog(
@@ -401,7 +383,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                     course_complete: widget.course_complete,
                     course_position: widget.course_position,
                     videoId: widget.videoId,
-                    ids: widget.ids),
+                    ),
                 duration: Duration(
                     seconds: 1), //duration of transitions, default 1 sec
                 transition: Transition.rightToLeft);
