@@ -19,19 +19,16 @@ class CourseDetailsPage extends StatefulWidget {
   bool course_complete;
   int course_position;
   final String videoId;
-  
 
-  CourseDetailsPage({
-    super.key,
-    required this.course_type,
-    required this.course_title,
-    required this.course_video,
-    required this.course_enroll,
-    required this.course_complete,
-    required this.course_position,
-    required this.videoId
-    
-  });
+  CourseDetailsPage(
+      {super.key,
+      required this.course_type,
+      required this.course_title,
+      required this.course_video,
+      required this.course_enroll,
+      required this.course_complete,
+      required this.course_position,
+      required this.videoId});
 
   @override
   State<CourseDetailsPage> createState() => _CourseDetailsPageState();
@@ -45,20 +42,26 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
     // TODO: implement initState
     super.initState();
 
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    var currentUser = _auth.currentUser;
+    try {
+      final FirebaseAuth _auth = FirebaseAuth.instance;
+      var currentUser = _auth.currentUser;
 
-    FirebaseFirestore.instance
-        .collection("usersdata/users/${currentUser!.email}")
-        .where('course_title', isEqualTo: widget.course_title)
-        .get()
-        .then((value) {
-      value.docs.forEach((doc) {
-        setState(() {
-          enroll = true;
+      FirebaseFirestore.instance
+          .collection("usersdata/users/${currentUser!.email}")
+          .where('course_title', isEqualTo: widget.course_title)
+          .get()
+          .then((value) {
+        value.docs.forEach((doc) {
+          setState(() {
+            enroll = true;
+          });
         });
       });
-    });
+    } catch (e) {
+      setState(() {
+        enroll = true;
+      });
+    }
   }
 
   @override
@@ -206,14 +209,14 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                               onPressed: () {
                                 Get.to(
                                     CoursePlayerPage(
-                                        course_type: widget.course_type,
-                                        course_title: widget.course_title,
-                                        course_video: widget.course_video,
-                                        course_enroll: widget.course_enroll,
-                                        course_complete: widget.course_complete,
-                                        course_position: widget.course_position,
-                                        videoId: widget.videoId,
-                                        ),
+                                      course_type: widget.course_type,
+                                      course_title: widget.course_title,
+                                      course_video: widget.course_video,
+                                      course_enroll: widget.course_enroll,
+                                      course_complete: widget.course_complete,
+                                      course_position: widget.course_position,
+                                      videoId: widget.videoId,
+                                    ),
                                     duration: Duration(
                                         seconds:
                                             1), //duration of transitions, default 1 sec
@@ -251,7 +254,6 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                                 fontSize: 20.sp, fontWeight: FontWeight.w500)),
                       ],
                     ),
-                   
                   ],
                 ),
               )),
@@ -376,14 +378,14 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
             Get.back();
             Get.to(
                 CoursePlayerPage(
-                    course_type: widget.course_type,
-                    course_title: widget.course_title,
-                    course_video: widget.course_video,
-                    course_enroll: widget.course_enroll,
-                    course_complete: widget.course_complete,
-                    course_position: widget.course_position,
-                    videoId: widget.videoId,
-                    ),
+                  course_type: widget.course_type,
+                  course_title: widget.course_title,
+                  course_video: widget.course_video,
+                  course_enroll: widget.course_enroll,
+                  course_complete: widget.course_complete,
+                  course_position: widget.course_position,
+                  videoId: widget.videoId,
+                ),
                 duration: Duration(
                     seconds: 1), //duration of transitions, default 1 sec
                 transition: Transition.rightToLeft);
