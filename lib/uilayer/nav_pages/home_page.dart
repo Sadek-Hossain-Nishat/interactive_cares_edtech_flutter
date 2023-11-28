@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:interactive_cares_app/domainlayer/auth_viewmodel.dart';
 import 'package:interactive_cares_app/domainlayer/color_util.dart';
+import 'package:interactive_cares_app/uilayer/category_item_page.dart';
 import 'package:interactive_cares_app/uilayer/signin/signin_page.dart';
 import 'package:interactive_cares_app/uilayer/signup/signup_page.dart';
 
@@ -215,7 +216,13 @@ class Homepage extends StatelessWidget {
                                 Padding(
                                   padding: EdgeInsets.only(left: 8.w),
                                   child: OutlinedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Get.to(CategoryItemPage(name: 'Web'),
+                                            duration: Duration(
+                                                seconds:
+                                                    1), //duration of transitions, default 1 sec
+                                            transition: Transition.rightToLeft);
+                                      },
                                       child: Text(
                                         "Web",
                                         style: TextStyle(
@@ -230,7 +237,13 @@ class Homepage extends StatelessWidget {
                                 Padding(
                                   padding: EdgeInsets.only(left: 8.w),
                                   child: OutlinedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Get.to(CategoryItemPage(name: 'Mobile'),
+                                            duration: Duration(
+                                                seconds:
+                                                    1), //duration of transitions, default 1 sec
+                                            transition: Transition.rightToLeft);
+                                      },
                                       child: Text(
                                         "Mobile",
                                         style: TextStyle(
@@ -245,7 +258,14 @@ class Homepage extends StatelessWidget {
                                 Padding(
                                   padding: EdgeInsets.only(left: 8.w),
                                   child: OutlinedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Get.to(
+                                            CategoryItemPage(name: 'Graphics'),
+                                            duration: Duration(
+                                                seconds:
+                                                    1), //duration of transitions, default 1 sec
+                                            transition: Transition.rightToLeft);
+                                      },
                                       child: Text(
                                         "Graphics",
                                         style: TextStyle(
