@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:interactive_cares_app/uilayer/course_details_page.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class CousreItemView {
@@ -15,13 +16,17 @@ class CousreItemView {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          // Get.to(
-          //     CategoryItemPage(
-          //       name: name,
-          //     ),
-          //     duration:
-          //         Duration(seconds: 1), //duration of transitions, default 1 sec
-          //     transition: Transition.rightToLeft);
+          Get.to(
+              CourseDetailsPage(
+                  course_type: course_type,
+                  course_title: course_title,
+                  course_video: course_video,
+                  course_enroll: course_enroll,
+                  course_complete: course_complete,
+                  course_position: course_position),
+              duration:
+                  Duration(seconds: 1), //duration of transitions, default 1 sec
+              transition: Transition.rightToLeft);
           print(course_title);
         },
         child: AspectRatio(

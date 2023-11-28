@@ -51,7 +51,7 @@ class _CategoryItemPageState extends State<CategoryItemPage> {
                 ]),
                 SizedBox(height: 60.h),
                 AspectRatio(
-                  aspectRatio: 0.5,
+                  aspectRatio: 0.2,
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection('course')
@@ -76,6 +76,7 @@ class _CategoryItemPageState extends State<CategoryItemPage> {
                         }
 
                         return ListView(
+                          physics: const NeverScrollableScrollPhysics(),
                           children: snapshot.data!.docs.map((document) {
                             Map<String, dynamic> data =
                                 document.data() as Map<String, dynamic>;
