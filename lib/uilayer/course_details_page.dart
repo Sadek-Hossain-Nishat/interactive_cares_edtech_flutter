@@ -41,6 +41,13 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        setState(() {
+          enroll = false;
+        });
+      }
+    });
 
     try {
       final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -59,7 +66,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
       });
     } catch (e) {
       setState(() {
-        enroll = true;
+        enroll = false;
       });
     }
   }
@@ -244,14 +251,6 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                                 fontSize: 16.sp, fontWeight: FontWeight.w400),
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 30.h),
-                    Row(
-                      children: [
-                        Text('About This Course',
-                            style: TextStyle(
-                                fontSize: 20.sp, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ],
